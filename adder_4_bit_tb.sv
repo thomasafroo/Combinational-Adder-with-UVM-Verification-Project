@@ -101,16 +101,16 @@ uvm_analysis_port #(transaction) send;
    `uvm_error("MON","Unable to access uvm_config_db");
   endfunction
  
-    virtual task run_phase(uvm_phase phase);
+  virtual task run_phase(uvm_phase phase);
     forever begin
-    #10;
-    t.a = aif.a;
-    t.b = aif.b;
-    t.y = aif.y;
-    `uvm_info("MON", $sformatf("Data send to Scoreboard a : %0d , b : %0d and y : %0d", t.a,t.b,t.y), UVM_NONE);
-    send.write(t);
+      #10;
+      t.a = aif.a;
+      t.b = aif.b;
+      t.y = aif.y;
+      `uvm_info("MON", $sformatf("Data send to Scoreboard a : %0d , b : %0d and y : %0d", t.a,t.b,t.y), UVM_NONE);
+      send.write(t);
     end
-    endtask
+  endtask
 endclass
  
 ///////////////////////////////////////////////////////////////////////
