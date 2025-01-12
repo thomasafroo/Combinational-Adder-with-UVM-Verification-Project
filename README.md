@@ -127,7 +127,7 @@ UVM_INFO @ 20: SCO: Test Passed
 
 - Extend verification for corner cases (e.g., overflow).
 - Add functional and code coverage reports.
-- Parameterize the design for variable bit widths.
+- Parameterize the design for variable bit widths (e.g. 8-bit, 16-bit)
 
 ## References
 
