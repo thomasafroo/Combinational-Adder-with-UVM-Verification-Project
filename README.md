@@ -4,7 +4,7 @@ This project demonstrates the use of Universal Verification Methodology (UVM) to
 
 ## Project Structure
 
-### Design Module (`design.sv`)
+### Design Module (`adder_4_bit.sv`)
 
 The adder module performs a simple 4-bit addition and outputs the 5-bit result.
 
@@ -63,7 +63,7 @@ The `environment` connects the agent and scoreboard, providing the testbench str
 
 The `test` defines the test sequence and initiates the verification process.
 
-### Top-Level Testbench Module (`add_tb.sv`)
+### Top-Level Testbench Module (`adder_4_bit_tb.sv`)
 
 The top-level module instantiates the DUT and interface and runs the UVM test.
 
@@ -115,13 +115,6 @@ UVM_INFO @ 10: DRV: Trigger DUT a: 5, b: 3
 UVM_INFO @ 20: MON: Data sent to Scoreboard a: 5, b: 3, y: 8
 UVM_INFO @ 20: SCO: Test Passed
 ```
-
-## File List
-
-- `design.sv`: 4-bit adder module.
-- `add_if.sv`: Interface for connecting testbench and DUT.
-- `testbench.sv`: UVM testbench including all components and the top-level test.
-- `dump.vcd`: Generated waveform file.
 
 ## Future Work
 
