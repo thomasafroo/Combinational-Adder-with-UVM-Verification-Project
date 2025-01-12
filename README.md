@@ -17,7 +17,7 @@ module add(
 endmodule
 ```
 
-### Interface (`add_if.sv`)
+### Interface (`add_if`)
 
 The interface connects the testbench with the design-under-test (DUT) by defining the input and output signals:
 
