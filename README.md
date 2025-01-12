@@ -287,10 +287,8 @@ endmodule
 ## How to Run
 
 1. **Requirements:**
-
-   - EDA Playground supporting SystemVerilog and UVM with Aldec Riviera Pro
-     
-  [View on EDA Playground](https://edaplayground.com/x/tb4f)
+- EDA Playground supporting SystemVerilog and UVM with Aldec Riviera Pro
+- [View on EDA Playground](https://edaplayground.com/x/tb4f)
 
 ## Features
 
