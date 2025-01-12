@@ -288,26 +288,8 @@ endmodule
 
 1. **Requirements:**
 
-   - A simulator (e.g. EDA Playground) supporting SystemVerilog and UVM (e.g., Synopsys VCS, Cadence Xcelium, Mentor Questa).
-
-2. **Compilation:**
-   Compile the design and testbench files along with UVM libraries.
-
-   ```bash
-   vlog -sv design.sv add_if.sv testbench.sv +incdir+$(UVM_HOME)/src
-   ```
-
-3. **Simulation:**
-   Run the simulation with the UVM test specified.
-
-   ```bash
-   vsim -c -do "run -all" add_tb
-   ```
-
-4. **Output:**
-
-   - Waveform: View the generated `dump.vcd` file to analyze signal transitions.
-   - Log: Check the simulation log for verification results and UVM messages.
+   - EDA Playground supporting SystemVerilog and UVM with Aldec Riviera Pro
+  [View on EDA Playground](https://edaplayground.com/x/tb4f)
 
 ## Features
 
