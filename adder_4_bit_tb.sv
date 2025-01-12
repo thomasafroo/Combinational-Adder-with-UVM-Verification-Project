@@ -145,101 +145,91 @@ endclass
 ////////////////////////////////////////////////
  
 class agent extends uvm_agent;
-`uvm_component_utils(agent)
- 
- 
-function new(input string inst = "AGENT", uvm_component c);
-super.new(inst, c);
-endfunction
- 
-monitor m;
-driver d;
-uvm_sequencer #(transaction) seqr;
- 
- 
-virtual function void build_phase(uvm_phase phase);
-super.build_phase(phase);
-  m = monitor::type_id::create("m",this);
-  d = driver::type_id::create("d",this);
-  seqr = uvm_sequencer #(transaction)::type_id::create("seqr",this);
-endfunction
- 
- 
-virtual function void connect_phase(uvm_phase phase);
-super.connect_phase(phase);
-  d.seq_item_port.connect(seqr.seq_item_export);
-endfunction
+  `uvm_component_utils(agent)
+  
+  function new(input string inst = "AGENT", uvm_component c);
+    super.new(inst, c);
+  endfunction
+  
+  monitor m;
+  driver d;
+  uvm_sequencer #(transaction) seqr;
+  
+  virtual function void build_phase(uvm_phase phase);
+    super.build_phase(phase);
+    m = monitor::type_id::create("m",this);
+    d = driver::type_id::create("d",this);
+    seqr = uvm_sequencer #(transaction)::type_id::create("seqr",this);
+  endfunction
+  
+  virtual function void connect_phase(uvm_phase phase);
+    super.connect_phase(phase);
+    d.seq_item_port.connect(seqr.seq_item_export);
+  endfunction
 endclass
  
 /////////////////////////////////////////////////////
  
 class env extends uvm_env;
-`uvm_component_utils(env)
+  `uvm_component_utils(env)
  
+  function new(input string inst = "ENV", uvm_component c);
+    super.new(inst, c);
+  endfunction
  
-function new(input string inst = "ENV", uvm_component c);
-super.new(inst, c);
-endfunction
+  scoreboard s;
+  agent a;
  
-scoreboard s;
-agent a;
+  virtual function void build_phase(uvm_phase phase);
+    super.build_phase(phase);
+    s = scoreboard::type_id::create("s",this);
+    a = agent::type_id::create("a",this);
+  endfunction
  
-virtual function void build_phase(uvm_phase phase);
-super.build_phase(phase);
-  s = scoreboard::type_id::create("s",this);
-  a = agent::type_id::create("a",this);
-endfunction
- 
- 
-virtual function void connect_phase(uvm_phase phase);
-super.connect_phase(phase);
-a.m.send.connect(s.recv);
-endfunction
- 
+  virtual function void connect_phase(uvm_phase phase);
+    super.connect_phase(phase);
+    a.m.send.connect(s.recv);
+  endfunction
 endclass
  
 ////////////////////////////////////////////
  
 class test extends uvm_test;
-`uvm_component_utils(test)
- 
- 
-function new(input string inst = "TEST", uvm_component c);
-super.new(inst, c);
-endfunction
- 
-generator gen;
-env e;
- 
-virtual function void build_phase(uvm_phase phase);
-super.build_phase(phase);
-  gen = generator::type_id::create("gen");
-  e = env::type_id::create("e",this);
-endfunction
- 
-virtual task run_phase(uvm_phase phase);
-   phase.raise_objection(this);
-   gen.start(e.a.seqr);
-   #50;
-   phase.drop_objection(this);
-endtask
+  `uvm_component_utils(test)
+  
+  function new(input string inst = "TEST", uvm_component c);
+    super.new(inst, c);
+  endfunction
+  
+  generator gen;
+  env e;
+  
+  virtual function void build_phase(uvm_phase phase);
+    super.build_phase(phase);
+    gen = generator::type_id::create("gen");
+    e = env::type_id::create("e",this);
+  endfunction
+  
+  virtual task run_phase(uvm_phase phase);
+    phase.raise_objection(this);
+    gen.start(e.a.seqr);
+    #50;
+    phase.drop_objection(this);
+  endtask
 endclass
 //////////////////////////////////////
  
 module add_tb();
- 
-add_if aif();
- 
-add dut (.a(aif.a), .b(aif.b), .y(aif.y));
+  add_if aif();
+  add dut (.a(aif.a), .b(aif.b), .y(aif.y));
 
-initial begin
-$dumpfile("dump.vcd");
-$dumpvars;
-end
-  
-initial begin  
-uvm_config_db #(virtual add_if)::set(null, "uvm_test_top.e.a*", "aif", aif);
-run_test("test");
-end
- 
+  initial begin
+    $dumpfile("dump.vcd");
+    $dumpvars;
+  end
+    
+  initial begin  
+    uvm_config_db #(virtual add_if)::set(null, "uvm_test_top.e.a*", "aif", aif);
+    run_test("test");
+  end
 endmodule
