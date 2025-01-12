@@ -71,7 +71,7 @@ The top-level module instantiates the DUT and interface and runs the UVM test.
 
 1. **Requirements:**
 
-   - A simulator supporting SystemVerilog and UVM (e.g., Synopsys VCS, Cadence Xcelium, Mentor Questa).
+   - A simulator (e.g. EDA Playground) supporting SystemVerilog and UVM (e.g., Synopsys VCS, Cadence Xcelium, Mentor Questa).
 
 2. **Compilation:**
    Compile the design and testbench files along with UVM libraries.
